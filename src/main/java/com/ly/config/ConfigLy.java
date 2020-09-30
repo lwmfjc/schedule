@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableScheduling
 public class ConfigLy {
     /**
-     * 使用自定义的taskScheduler
+     * 使用自定义的taskScheduler(任务调度器)
      * @return
      */
     @Bean
@@ -27,8 +27,14 @@ public class ConfigLy {
         scheduler.setPoolSize(10);
         return scheduler;
     }
+
+    /**
+     * 任务执行器
+     * @return
+     */
     @Bean
     TaskExecutor taskExecutor(){
+        //每次执行的时候调用新的线程
         return new SimpleAsyncTaskExecutor();
     }
 }
