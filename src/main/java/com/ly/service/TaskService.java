@@ -2,8 +2,12 @@ package com.ly.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.Future;
 
 @Component
 public class TaskService {
@@ -12,4 +16,24 @@ public class TaskService {
     public void scheduleTest(){
         logger.info("我在执行任务~");
     }
+    @Async
+    public void asyncOnly(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.info("休眠了一秒后打印日志");
+    }
+    @Async
+    public Future<String> asyncWithResult(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.info("休眠了3秒后获取到结果");
+        return new AsyncResult<>("LyStr--[世间安得两全法 不负如来不负卿]");
+    }
+
 }
